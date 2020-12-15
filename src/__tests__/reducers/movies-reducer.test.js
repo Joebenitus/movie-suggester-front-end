@@ -43,4 +43,17 @@ describe('moviesReducer', () => {
       error: null
     });
   });
+
+  test('failing to get movie should change isLoading to is false and add an error message', () => {
+    const error = 'error';
+    action = {
+      type: c.GET_ALL_MOVIES_FAILURE,
+      error
+    };
+    expect(moviesReducer(defaultState, action)).toEqual({
+      isLoading: false,
+      movies: [],
+      error: 'error'
+    });
+  });
 });
