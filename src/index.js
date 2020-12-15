@@ -7,6 +7,7 @@ import thunkMiddleware from 'redux-thunk';
 import middlewareLogger from './middleware/middleware-logger';
 import reducer from './reducers/movies-reducer';
 import { Provider } from 'react-redux';
+import 'fontsource-roboto';
 //import reportWebVitals from './reportWebVitals';
 
 const store = createStore(reducer, applyMiddleware(thunkMiddleware, middlewareLogger));

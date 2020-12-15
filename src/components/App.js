@@ -1,11 +1,14 @@
 import './../App.css';
 import React from 'react';
 import Movies from './Movies';
+import Container from '@material-ui/core/Container'
 
 function App() {
   return (
     <>
-      <Movies/>
+      <Container>
+        <Movies/>
+      </Container>
     </>
   );
 }

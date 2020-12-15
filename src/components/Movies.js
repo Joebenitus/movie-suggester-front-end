@@ -1,52 +1,42 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { makeApiCall } from './../actions';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 class Movies extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      movies: []
-    };
   }
 
   componentDidMount() {
-    this.makeApiCall();
-  }
-
-  makeApiCall = () => {
-    fetch(`http://localhost:3000/movies`)
-      .then(response => response.json())
-      .then((jsonifiedResponse) => {
-        this.setState({
-          isLoaded: true,
-          movies: jsonifiedResponse
-        });
-      })
-      .catch((error) => {
-        this.setState({
-          isLoaded: true,
-          error
-        });
-      });
+    const { dispatch } = this.props;
+    dispatch(makeApiCall());
   }
 
   render() {
-    const { error, isLoaded, movies } = this.state;
+    const { error, isLoading, movies } = this.props;
     console.log(this.state)
     if (error) {
       return <>Error: {error.message}</>
-    } else if (!isLoaded) {
+    } else if (isLoading) {
       return <>Loading...</>
     } else {
       return (
         <>
-          <h1>Movies</h1>
+          <h1 style={{textAlign: 'center'}}>Movies</h1>
           <ul>
             {movies.map((movie, index) => 
-              <li key={index}>
-                <h3>{movie.title}</h3>
-              </li>
+              <Card key={index}>
+                <CardContent>
+                  <Typography variant='h5'>
+                    {movie.title}
+                  </Typography>
+                </CardContent>
+              </Card>
             )}
           </ul>
         </>
@@ -55,4 +45,12 @@ class Movies extends React.Component {
   }
 }
 
-export default Movies;
+const mapStateToProps = state => {
+  return {
+    movies: state.movies,
+    isLoading: state.isLoading,
+    error: state.error
+  }
+}
+
+export default connect(mapStateToProps)(Movies);

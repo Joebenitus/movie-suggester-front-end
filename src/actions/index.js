@@ -4,7 +4,7 @@ export const requestMovies = () => ({
   type: c.REQUEST_MOVIES
 });
 
-export const getAllMoviesSSuccess = (movies) => ({
+export const getAllMoviesSuccess = (movies) => ({
   type: c.GET_ALL_MOVIES_SUCCESS,
   movies
 });
