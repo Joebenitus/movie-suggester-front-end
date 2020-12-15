@@ -29,4 +29,18 @@ describe('moviesReducer', () => {
       error: null
     });
   });
+
+  test('Successfully getting movies should change isLoading to false and update movies', () => {
+    const movies = 'American Pie';
+    action = {
+      type: c.GET_ALL_MOVIES_SUCCESS,
+      movies
+    };
+
+    expect(moviesReducer(defaultState, action)).toEqual({
+      isLoading: false,
+      movies: 'American Pie',
+      error: null
+    });
+  });
 });

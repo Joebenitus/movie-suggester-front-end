@@ -12,6 +12,11 @@ export default (state = defaultState, action) => {
       return Object.assign({}, state, {
         isLoading: true
       });
+    case c.GET_ALL_MOVIES_SUCCESS:
+      return Object.assign({}, state, {
+        isLoading: false, 
+        movies: action.movies
+      });
     default:
       return state
   }
