@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { makeApiCall } from './../actions';
+import { makeApiCall, makeApiCallPost } from './../actions';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import NewMovieForm from './NewMovieForm';
 
 class Movies extends React.Component {
   constructor(props) {
@@ -15,6 +16,10 @@ class Movies extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(makeApiCall());
+  }
+
+  handleNewMovieFormSubmission(title) {
+    fetch(`http://localhost:3000/movies?title=${title}`, { method: 'POST' })
   }
 
   render() {
@@ -27,6 +32,7 @@ class Movies extends React.Component {
     } else {
       return (
         <>
+          <NewMovieForm onNewMovieCreation={this.handleNewMovieFormSubmission}/>
           <h1 style={{textAlign: 'center'}}>Movies</h1>
           <ul>
             {movies.map((movie, index) => 
